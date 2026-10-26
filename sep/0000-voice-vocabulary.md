@@ -82,9 +82,18 @@ naming the vocabulary resource:
 | `uri` | string | REQUIRED. The URI of a resource holding a vocabulary document (section 2). |
 | `language` | string | REQUIRED. BCP 47 tag of the speech the vocabulary is for; the same as the document's `language`. |
 
-The server MUST also declare the `resources` capability and MUST serve the document
-through `resources/read` at `uri`, with `mimeType` `application/vnd.voice-vocabulary+json`.
-It MAY also list the resource in `resources/list`.
+The server MUST also declare the `resources` capability, MUST serve the document
+through `resources/read` at `uri` with `mimeType` `application/vnd.voice-vocabulary+json`,
+and MUST list it in `resources/list` with that `mimeType`.
+
+**Finding the vocabulary.** A client SHOULD look for the capability first (in the
+`server/discover` result from protocol version 2026-07-28, or the `initialize`
+result where it carries extensions). If the capability isn't there, the client
+SHOULD fall back to `resources/list` and use the first resource whose `mimeType`
+is `application/vnd.voice-vocabulary+json`. The fallback matters in practice:
+protocol versions up to 2025-11-25 have no `extensions` field, and SDKs drop it
+on those connections (the MCP Python SDK 2.3 does), while most voice frameworks
+still connect with the `initialize` handshake.
 
 A client that supports the extension MAY advertise it in its own `initialize`
 request, with an empty settings object. A server MUST NOT require it: the
@@ -245,6 +254,11 @@ descriptions and results understandable without it.
 - **A resource, not a new method.** Resources already exist, are cached by some
   clients, and can be read by a client that doesn't know this extension at all.
   The capability only says which resource it is.
+- **Discoverable without the capability.** Building the reference Pipecat
+  integration showed that a capability alone isn't enough today: Pipecat connects
+  with the `initialize` handshake, which can't carry `extensions`. Listing the
+  resource under its own `mimeType` makes the vocabulary findable on every
+  protocol version, with no SDK changes.
 - **Engine-neutral, client-converted.** Engines change faster than a spec can.
   The document carries facts (spellings, sound-alikes, pronunciations, boost
   priority); each client maps them to the parameters its engines take.
@@ -309,6 +323,12 @@ app. That's the work this extension moves to the server, once, for every voice a
   read the extension from a connected MCP client, validate the document, and
   produce a Whisper prompt, keyterms, corrected transcripts, respelled speech and a
   PLS lexicon. Both pass [`conformance/cases.json`](https://github.com/mvuk/voice-vocabulary/blob/main/conformance/cases.json).
+- **Voice framework:** [`integrations/pipecat/`](https://github.com/mvuk/voice-vocabulary/blob/main/integrations/pipecat/), for
+  [Pipecat](https://github.com/pipecat-ai/pipecat). One processor after the STT
+  service sends it keyterms in its own field (Deepgram, AssemblyAI, ElevenLabs,
+  Cartesia, Whisper, OpenAI, Groq), gives the LLM the primer and corrects
+  transcripts; the server's pronunciations become TTS text transforms. Tested
+  against Pipecat 1.14.0 with a real MCP server process.
 
 ## Phase 2: languages (asking for review)
 
@@ -340,8 +360,9 @@ are not its English ones. The questions we'd like reviewers' views on:
   `notifications/resources/updated` on its URI is the obvious mechanism)?
 - Should packs (shared lexicons several servers include) have a registry, or are
   `includes` with URLs enough?
-- Is a capability plus a resource the right shape, or should this be a new
-  resource *type* that clients discover by `mimeType` alone?
+- Is a capability plus a resource the right shape? This draft uses both: the
+  capability where the protocol carries it, the `mimeType` where it doesn't.
+  Should the `mimeType` alone be enough?
 
 [SEP-2133]: https://modelcontextprotocol.io/seps/2133-extensions
 [RFC 2119]: https://www.rfc-editor.org/rfc/rfc2119

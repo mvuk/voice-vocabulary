@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
-import { EXTENSION, correct, fromMcpClient, keyterms, lookup, primer, pronounce, toPls, transcriptionPrompt, validate } from "./voice-vocabulary.js";
+import { EXTENSION, MIME, correct, fromMcpClient, keyterms, lookup, primer, pronounce, toPls, transcriptionPrompt, validate } from "./voice-vocabulary.js";
 
 const read = (p) => JSON.parse(fs.readFileSync(new URL(p, import.meta.url), "utf8"));
 const cases = read("../conformance/cases.json");
@@ -62,6 +62,9 @@ test("reads the extension from a connected MCP client, and nothing when it isn't
 	});
 	assert.equal((await fromMcpClient(client({ [EXTENSION]: { uri: "bark-voice://vocabulary", language: "en" } }))).name, "Bark");
 	assert.equal(await fromMcpClient(client(undefined)), null);
+	// no capability (an initialize-era connection): found by its listed mimeType
+	const listed = { ...client(undefined), listResources: async () => ({ resources: [{ uri: "x://other", mimeType: "text/plain" }, { uri: "bark-voice://vocabulary", mimeType: MIME }] }) };
+	assert.equal((await fromMcpClient(listed)).name, "Bark");
 	const bad = { ...client({ [EXTENSION]: { uri: "x://v" } }), readResource: async () => ({ contents: [{ text: "{}" }] }) };
 	await assert.rejects(fromMcpClient(bad), /not a valid voice vocabulary/);
 });

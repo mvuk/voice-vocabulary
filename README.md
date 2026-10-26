@@ -27,6 +27,7 @@ A client that doesn't know the extension ignores it and loses nothing.
 | **[schema/](schema/vocabulary.schema.json)** | JSON Schema for the vocabulary document |
 | **[js/](js/voice-vocabulary.js)** · **[python/](python/voice_vocabulary.py)** | Reference clients, no dependencies: read the extension from an MCP client, validate, and produce prompts, keyterms, corrections, respellings and PLS |
 | **[conformance/](conformance/cases.json)** | Cases every client must pass; both reference clients do |
+| **[integrations/pipecat/](integrations/pipecat/)** | For [Pipecat](https://github.com/pipecat-ai/pipecat): one processor gives the STT its keyterms, the LLM its primer, and corrects transcripts; pronunciations go to the TTS |
 | **[examples/](examples/)** | `devops.vocabulary.json`, the small example in SPEC.md; `bark.vocabulary.json`, the canonical one from [bark-voice](https://gitlab.com/matthewvuk/bark-voice) (a bitcoin wallet on [bark-mcp](https://gitlab.com/ark-bitcoin/labs/bark-mcp), 101 terms) |
 | **[packs/](packs/)** | Shared lexicons a server can build on, one language per file. The first ones come from the Bark example: `ark`, `lightning`, `bitcoin` (English) |
 | **[PROPOSAL.md](PROPOSAL.md)** | The post for the MCP community discussion |
@@ -71,6 +72,7 @@ Validate it with `validate(doc)` from either client before you ship it.
 ```bash
 node --test js/test.mjs
 cd python && python3 -m unittest -v test_voice_vocabulary
+# Pipecat: see integrations/pipecat/README.md
 ```
 
 ## Status

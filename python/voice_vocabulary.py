@@ -104,21 +104,48 @@ def extension_settings(capabilities: Any) -> dict | None:
     return settings if isinstance(settings, dict) and settings.get("uri") else None
 
 
-async def from_mcp_session(session: Any, init_result: Any) -> dict | None:
-    """Read the vocabulary a server advertises, from an MCP Python SDK ClientSession and
-    the InitializeResult its initialize() returned. None when the server has none."""
-    settings = extension_settings(getattr(init_result, "capabilities", None))
-    if not settings:
-        return None
-    result = await session.read_resource(settings["uri"])
-    text = next((c.text for c in result.contents if isinstance(getattr(c, "text", None), str)), None)
-    return parse(text, settings["uri"])
+async def from_mcp_session(session: Any, capabilities: Any = None) -> dict | None:
+    """Read the vocabulary a server publishes, from an MCP Python SDK ClientSession.
+
+    The capability first (pass the InitializeResult or its capabilities, or let the
+    session's own be used); failing that, a listed resource with the vocabulary's
+    mimeType, which is the only way on connections that can't carry extensions
+    (SPEC 1). None when the server has none."""
+    caps = getattr(capabilities, "capabilities", capabilities)
+    if caps is None:
+        caps = getattr(session, "server_capabilities", None)
+        caps = caps() if callable(caps) else caps
+
+    async def read(uri: str) -> str:
+        result = await session.read_resource(uri)
+        return next((c.text for c in result.contents if isinstance(getattr(c, "text", None), str)), "")
+
+    async def listed() -> list[tuple[str, str | None]]:
+        out: list[tuple[str, str | None]] = []
+        cursor = None
+        for _ in range(10):
+            result = await (session.list_resources(cursor=cursor) if cursor else session.list_resources())
+            out += [(str(r.uri), getattr(r, "mime_type", None) or getattr(r, "mimeType", None)) for r in result.resources]
+            cursor = getattr(result, "next_cursor", None) or getattr(result, "nextCursor", None)
+            if not cursor:
+                break
+        return out
+
+    return await from_reader(caps, read, listed)
 
 
-async def from_reader(capabilities: Any, read: Callable[[str], Awaitable[str]]) -> dict | None:
-    """The same, for any MCP client: its server capabilities and a function reading a resource's text."""
+async def from_reader(
+    capabilities: Any,
+    read: Callable[[str], Awaitable[str]],
+    list_resources: Callable[[], Awaitable[list[tuple[str, str | None]]]] | None = None,
+) -> dict | None:
+    """The same, for any MCP client: its server capabilities, a function reading a
+    resource's text, and optionally one listing (uri, mimeType) pairs for the fallback."""
     settings = extension_settings(capabilities)
-    return parse(await read(settings["uri"]), settings["uri"]) if settings else None
+    uri = settings["uri"] if settings else None
+    if uri is None and list_resources is not None:
+        uri = next((u for u, mime in await list_resources() if mime == MIME), None)
+    return parse(await read(uri), uri) if uri else None
 
 
 def _list(vocabs: dict | Iterable[dict]) -> list[dict]:

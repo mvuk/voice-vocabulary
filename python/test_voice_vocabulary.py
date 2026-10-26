@@ -57,6 +57,12 @@ class Conformance(unittest.TestCase):
         self.assertEqual(asyncio.run(vv.from_reader(caps, read))["name"], "Bark")
         self.assertIsNone(asyncio.run(vv.from_reader({"tools": {}}, read)))
 
+        async def listed():
+            return [("x://other", "text/plain"), ("bark-voice://vocabulary", vv.MIME)]
+
+        # no capability (an initialize-era connection): found by its listed mimeType
+        self.assertEqual(asyncio.run(vv.from_reader({"resources": {}}, read, listed))["name"], "Bark")
+
 
 if __name__ == "__main__":
     unittest.main()

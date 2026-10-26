@@ -61,20 +61,36 @@ export function validate(doc) {
 }
 
 /**
- * Read the vocabulary a connected server advertises (MCP TypeScript SDK `Client`,
- * or anything with getServerCapabilities() and readResource()). Null when the
- * server doesn't support the extension; throws when its document is invalid.
+ * Read the vocabulary a connected server publishes (MCP TypeScript SDK `Client`,
+ * or anything with getServerCapabilities(), listResources() and readResource()).
+ * The capability first; failing that, a listed resource with the vocabulary's
+ * mimeType, which works on connections that can't carry extensions (SPEC 1).
+ * Null when the server has none; throws when its document is invalid.
  */
 export async function fromMcpClient(client) {
-	const settings = client.getServerCapabilities?.()?.extensions?.[EXTENSION];
-	if (!settings?.uri) return null;
-	const { contents } = await client.readResource({ uri: settings.uri });
+	const uri = client.getServerCapabilities?.()?.extensions?.[EXTENSION]?.uri || (await listedUri(client));
+	if (!uri) return null;
+	const { contents } = await client.readResource({ uri });
 	const text = contents?.find((c) => typeof c.text === "string")?.text;
-	if (!text || text.length > LIMITS.bytes) throw new Error(`${settings.uri}: missing or larger than 1 MB`);
+	if (!text || text.length > LIMITS.bytes) throw new Error(`${uri}: missing or larger than 1 MB`);
 	const doc = JSON.parse(text);
 	const errors = validate(doc);
-	if (errors.length) throw new Error(`${settings.uri} is not a valid voice vocabulary: ${errors.slice(0, 5).join("; ")}`);
+	if (errors.length) throw new Error(`${uri} is not a valid voice vocabulary: ${errors.slice(0, 5).join("; ")}`);
 	return doc;
+}
+
+/** The first listed resource with the vocabulary mimeType, following up to 10 pages. */
+async function listedUri(client) {
+	if (!client.getServerCapabilities?.()?.resources || !client.listResources) return null;
+	let cursor;
+	for (let page = 0; page < 10; page++) {
+		const { resources = [], nextCursor } = await client.listResources(cursor ? { cursor } : undefined);
+		const found = resources.find((r) => r.mimeType === MIME);
+		if (found) return found.uri;
+		if (!nextCursor) return null;
+		cursor = nextCursor;
+	}
+	return null;
 }
 
 const list = (v) => (Array.isArray(v) ? v.filter(Boolean) : v ? [v] : []);

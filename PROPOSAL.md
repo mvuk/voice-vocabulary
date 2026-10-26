@@ -49,6 +49,12 @@ their code names.
   negotiation, the document, client behaviour, security
 - Reference clients in JavaScript and Python, no dependencies, passing a shared
   conformance suite
+- A [Pipecat integration](https://github.com/mvuk/voice-vocabulary/tree/main/integrations/pipecat):
+  one processor after speech-to-text gives the engine its keyterms in whatever
+  field it uses (Deepgram, AssemblyAI, ElevenLabs, Cartesia, Whisper, OpenAI, Groq),
+  gives the LLM the primer and corrects transcripts. Building it showed that
+  Pipecat's MCP connection (the `initialize` handshake) can't carry extensions, so
+  the spec also lets clients find the vocabulary by its resource `mimeType`
 - Corrections can only ever produce the server's own term, so a server can't
   rewrite what the user said into anything else, and clients must not apply them
   to spoken approvals ("yes, go ahead")
