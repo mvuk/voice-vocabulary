@@ -84,3 +84,7 @@ definitions are quoted from the project's own documentation.
 4. **Client adoption.** Voice frameworks (Pipecat, LiveKit Agents and others) are
    where this pays off. Who maintains MCP client code there and would review a
    reference integration?
+
+## AI disclosure
+
+The proposal and its wording are currently AI-driven: this SEP, the reference clients, the Pipecat integration and this text were written primarily by Claude Code (Anthropic), under my direction. It is an early draft to establish the pattern. I will return to write it by hand and iterate on it thoughtfully as I plug it into more voice models and interfaces.

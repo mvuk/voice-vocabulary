@@ -1,6 +1,6 @@
 # SEP-0000: Voice Vocabulary
 
-- **Status**: Proposal (awaiting sponsor)
+- **Status**: Draft
 - **Type**: Extensions Track
 - **Created**: 2026-10-26
 - **Author(s)**: Matthew Vuk (@mvuk)
@@ -8,6 +8,7 @@
 - **PR**: (to be filled in)
 - **Extension identifier**: `io.github.mvuk/voice-vocabulary` (provisional; would become `io.modelcontextprotocol/voice-vocabulary` if accepted)
 - **Full specification, schema and reference code**: https://github.com/mvuk/voice-vocabulary
+- **AI disclosure**: The proposal and its wording are currently AI-driven: this SEP, the reference clients, the Pipecat integration and this text were written primarily by Claude Code (Anthropic), under my direction. It is an early draft to establish the pattern. I will return to write it by hand and iterate on it thoughtfully as I plug it into more voice models and interfaces.
 
 The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT,
 RECOMMENDED, NOT RECOMMENDED, MAY, and OPTIONAL in this document are to be
