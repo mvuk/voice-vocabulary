@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://gitlab.com/matthewvuk/voice-vocabulary/-/raw/main/schema/vocabulary.schema.json",
+	"$id": "https://raw.githubusercontent.com/mvuk/voice-vocabulary/main/schema/vocabulary.schema.json",
 	"title": "Voice vocabulary document (draft-1)",
 	"description": "The words an MCP server's domain uses, how speech-to-text mishears them, how to say them, and what they mean. See SPEC.md.",
 	"type": "object",

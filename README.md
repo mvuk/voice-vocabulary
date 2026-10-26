@@ -10,7 +10,7 @@ connects the model to the tools; nothing connects the tools to the ears and the
 mouth. This extension does:
 
 ```
-MCP server ── initialize: capabilities.extensions["io.gitlab.matthewvuk/voice-vocabulary"] = { uri, language }
+MCP server ── initialize: capabilities.extensions["io.github.mvuk/voice-vocabulary"] = { uri, language }
     │
     └─ resources/read uri ─► vocabulary document (terms, sound-alikes, pronunciations, definitions)
                                 │
@@ -60,7 +60,7 @@ resource (SPEC.md section 1). With the MCP TypeScript SDK:
 
 ```js
 new Server(info, { capabilities: { resources: {}, extensions: {
-  "io.gitlab.matthewvuk/voice-vocabulary": { uri: "my-server://vocabulary", language: "en" },
+  "io.github.mvuk/voice-vocabulary": { uri: "my-server://vocabulary", language: "en" },
 } } });
 ```
 

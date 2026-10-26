@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Extension identifier** | `io.gitlab.matthewvuk/voice-vocabulary` (provisional) |
+| **Extension identifier** | `io.github.mvuk/voice-vocabulary` (provisional) |
 | **Document version** | `draft-1` |
 | **Status** | Draft. Unofficial: not recognised by MCP governance ([SEP-2133]). |
 | **Author** | Matthew Vuk |
@@ -67,7 +67,7 @@ naming the vocabulary resource:
   "capabilities": {
     "resources": {},
     "extensions": {
-      "io.gitlab.matthewvuk/voice-vocabulary": {
+      "io.github.mvuk/voice-vocabulary": {
         "uri": "example-server://vocabulary",
         "language": "en"
       }

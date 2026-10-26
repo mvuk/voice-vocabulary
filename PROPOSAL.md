@@ -43,9 +43,9 @@ to one domain: a pharmacy server would publish drug names, a DevOps server
 `kubectl` and its cluster names, a game its characters, a company's internal tools
 their code names.
 
-**Spec, schema and reference code:** https://gitlab.com/matthewvuk/voice-vocabulary
+**Spec, schema and reference code:** https://github.com/mvuk/voice-vocabulary
 
-- [SPEC.md](https://gitlab.com/matthewvuk/voice-vocabulary/-/blob/main/SPEC.md):
+- [SPEC.md](https://github.com/mvuk/voice-vocabulary/blob/main/SPEC.md):
   negotiation, the document, client behaviour, security
 - Reference clients in JavaScript and Python, no dependencies, passing a shared
   conformance suite

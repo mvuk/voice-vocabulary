@@ -1,5 +1,5 @@
 /**
- * voice-vocabulary: the reference client for the io.gitlab.matthewvuk/voice-vocabulary
+ * voice-vocabulary: the reference client for the io.github.mvuk/voice-vocabulary
  * MCP extension (../SPEC.md). No dependencies; pass it a connected MCP client.
  *
  *   const vocab = await fromMcpClient(client);          // null if the server has none
@@ -9,7 +9,7 @@
  *   tts.speak(pronounce(reply, [vocab]));
  */
 
-export const EXTENSION = "io.gitlab.matthewvuk/voice-vocabulary";
+export const EXTENSION = "io.github.mvuk/voice-vocabulary";
 export const VERSION = "draft-1";
 export const MIME = "application/vnd.voice-vocabulary+json";
 

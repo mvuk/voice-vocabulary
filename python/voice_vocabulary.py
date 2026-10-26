@@ -1,4 +1,4 @@
-"""voice-vocabulary: the reference client for the io.gitlab.matthewvuk/voice-vocabulary
+"""voice-vocabulary: the reference client for the io.github.mvuk/voice-vocabulary
 MCP extension (../SPEC.md), in Python for Pipecat and other Python voice stacks.
 Standard library only; it gives the same results as ../js/voice-vocabulary.js
 (both pass ../conformance/cases.json).
@@ -16,7 +16,7 @@ import json
 import re
 from typing import Any, Awaitable, Callable, Iterable
 
-EXTENSION = "io.gitlab.matthewvuk/voice-vocabulary"
+EXTENSION = "io.github.mvuk/voice-vocabulary"
 VERSION = "draft-1"
 MIME = "application/vnd.voice-vocabulary+json"
 
