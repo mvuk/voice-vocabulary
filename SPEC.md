@@ -260,6 +260,14 @@ descriptions and results understandable without it.
   SSML `<sub>` and `<phoneme>`; vendor keyterm and custom-vocabulary features, which
   this document feeds rather than replaces.
 
+## Backward compatibility
+
+Purely additive. The extension uses the `capabilities.extensions` map and resources
+that MCP already has, and changes no existing message. Clients and servers that
+don't know it are unaffected (section 4). A breaking change to the document will
+get a new `voiceVocabulary` version and, per SEP-2133, a new extension identifier;
+clients MUST ignore documents whose version they don't support.
+
 ## Security implications
 
 A vocabulary comes from the server and is untrusted input to the client.
