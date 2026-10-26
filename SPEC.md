@@ -145,7 +145,7 @@ they don't know, so later drafts can add fields without breaking them.
 | `terms` | Term[] | REQUIRED. At most 2,000. |
 | `description` | string | OPTIONAL. One sentence. |
 | `source` | string | OPTIONAL. URL of the material the vocabulary was built from. |
-| `updated` | string | OPTIONAL. ISO 8601 date. Clients MAY use it to cache. |
+| `updated` | string | OPTIONAL. ISO 8601 date. Clients MAY use it, and from protocol version 2026-07-28 the resource's cache hints (`ttlMs`), to cache. |
 | `primer` | string | OPTIONAL. At most 2,000 characters of plain text for the model (section 3.3). |
 | `transcriptionPrompt` | string | OPTIONAL. A prompt the server has tuned for Whisper-style engines, at most 224 tokens (section 3.1). |
 | `includes` | string[] | OPTIONAL. URIs of other vocabulary documents this one builds on (section 2.3). |
@@ -217,7 +217,9 @@ uses the parts that fit its engines. Every part is OPTIONAL for the client.
 
 A client MUST NOT apply corrections to text whose exact wording decides an action
 the user has to approve, such as a spoken "yes, go ahead" confirming a purchase.
-Such decisions SHOULD be made on the raw transcript.
+This includes a spoken answer to a server's own request for confirmation (an
+elicitation, which from protocol version 2026-07-28 arrives as an
+`input_required` result). Such decisions SHOULD be made on the raw transcript.
 
 #### 3.2 Text-to-speech
 
@@ -225,7 +227,9 @@ Before synthesis, a client MAY replace each `term` (and its plural, `term` + "s"
 with `pronounce.alias`, or emit `<sub alias="…">` or `<phoneme alph="ipa" ph="…">`
 for engines that take SSML. Text shown on screen SHOULD keep the canonical `term`.
 A vocabulary converts directly to a [W3C PLS] lexicon (each `term` a `<grapheme>`,
-`pronounce.alias` an `<alias>`, `pronounce.ipa` a `<phoneme>`).
+`pronounce.alias` an `<alias>`, `pronounce.ipa` a `<phoneme>`). The same applies to
+anything else from the server that the client speaks, such as an announcement of a
+server event.
 
 #### 3.3 The model
 
@@ -243,6 +247,12 @@ them for speech-to-text and text-to-speech, keep each primer attributed to its
 server, and share any keyterm or prompt budget between them. If two vocabularies
 map the same sound-alike to different terms, the client SHOULD apply neither, and
 SHOULD keep both terms' keyterms.
+
+A server that fronts another server with a vocabulary (a gateway that re-exposes
+its tools) SHOULD advertise a single vocabulary covering both, merged or through
+`includes`, and SHOULD NOT also list the upstream document as a second resource
+with this `mimeType`: a client following the fallback in section 1 would otherwise
+pick whichever is listed first.
 
 ### 4. Graceful degradation
 
@@ -271,6 +281,10 @@ descriptions and results understandable without it.
   text would let a server rewrite what the user said (see *Security implications*).
 - **Provenance per definition.** `source` and `quoted` let a listener tell the
   domain's own words from a vocabulary author's paraphrase.
+- **Not a skill.** The Skills extension carries know-how to the model; a
+  vocabulary is mostly for the ears and the mouth, which need structured,
+  engine-neutral facts rather than prose. Only `primer` and the definitions reach
+  the model, as reference material. A server can offer both.
 - **The server is the right owner.** It knows its lexicon, and it changes when the
   product does; a vocabulary maintained in each voice app goes stale.
 - **Related standards.** [W3C PLS] for pronunciation (section 3.2 maps onto it);
@@ -316,10 +330,14 @@ voice app those words took a Whisper prompt, a keyterm list, transcript
 corrections, a pronunciation lexicon and a primer, all assembled by hand for one
 app. That's the work this extension moves to the server, once, for every voice app.
 
-- **Server:** [bark-voice], a voice connector built on [bark-mcp]. It advertises
+- **Servers:** [bark-voice], a voice connector built on [bark-mcp]. It advertises
   the extension and serves a 101-term vocabulary, 48 of its definitions quoted
   from its project's documentation and checked against it at build time. It is the
   canonical example: [`examples/bark.vocabulary.json`](examples/bark.vocabulary.json).
+  [bark-mcp] itself advertises the same document as `bark://vocabulary`, on both
+  2025-11-25 and 2026-07-28 connections. bark-voice fronts it as a gateway: it
+  advertises one vocabulary, lists bark-mcp's copy no second time (section 3.4),
+  and tests that the two documents match.
 - **Clients:** [`js/voice-vocabulary.js`](js/voice-vocabulary.js) and
   [`python/voice_vocabulary.py`](python/voice_vocabulary.py), no dependencies. They
   read the extension from a connected MCP client, validate the document, and
@@ -358,8 +376,10 @@ are not its English ones. The questions we'd like reviewers' views on:
 
 ## Open questions
 
-- Should a vocabulary be able to change mid-session (a
-  `notifications/resources/updated` on its URI is the obvious mechanism)?
+- Should a vocabulary be able to change mid-session? A resource update on its URI
+  is the obvious mechanism: `resources/subscribe` and
+  `notifications/resources/updated` on 2025-11-25, a `subscriptions/listen` stream
+  from 2026-07-28.
 - Should packs (shared lexicons several servers include) have a registry, or are
   `includes` with URLs enough?
 - Is a capability plus a resource the right shape? This draft uses both: the
