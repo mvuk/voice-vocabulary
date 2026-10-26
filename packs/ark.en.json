@@ -1,0 +1,529 @@
+{
+	"voiceVocabulary": "draft-1",
+	"name": "Ark protocol",
+	"description": "The Ark protocol, as Second documents it: VTXOs, rounds, boarding, exits.",
+	"source": "https://second.tech/docs/learn/glossary",
+	"language": "en",
+	"updated": "2026-10-26",
+	"terms": [
+		{
+			"term": "Ark",
+			"category": "ark",
+			"aliases": [
+				"Ark protocol"
+			],
+			"soundsLike": [
+				"arc"
+			],
+			"corrections": [
+				{
+					"match": "\\b(?:arc|ark)\\b",
+					"replace": "Ark"
+				}
+			],
+			"boost": true,
+			"summary": "Ark is the protocol this wallet runs on: a second layer on bitcoin for instant, cheap, self-custodial payments.",
+			"definition": "The Ark protocol is a second layer on the bitcoin network. It offers: simple boarding, low and predictable fees, instant payments, Lightning interoperability, and full control over your bitcoin.",
+			"source": "https://second.tech/docs/learn/intro",
+			"quoted": true
+		},
+		{
+			"term": "Ark server",
+			"category": "ark",
+			"aliases": [
+				"Ark service provider",
+				"ASP"
+			],
+			"summary": "A central server that coordinates rounds, helps with boarding and offboarding, deploys liquidity, and enables users to transact over the Lightning Network.",
+			"definition": "A central server that coordinates rounds, helps with boarding and offboarding, deploys liquidity, and enables users to transact over the Lightning Network. The Ark server does not custody any user bitcoin.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "VTXO",
+			"category": "ark",
+			"aliases": [
+				"VTXOs",
+				"virtual UTXO",
+				"virtual unspent transaction output"
+			],
+			"soundsLike": [
+				"v t x o"
+			],
+			"corrections": [
+				{
+					"match": "\\bv[ .-]?t[ .-]?x[ .-]?o(s?)\\b",
+					"replace": "VTXO$1"
+				}
+			],
+			"pronounce": {
+				"alias": "V T X O"
+			},
+			"boost": true,
+			"summary": "A VTXO is a coin on Ark: your Ark balance is made of VTXOs, and each one has a limited lifetime.",
+			"definition": "Short for \"virtual unspent transaction output\" or \"virtual UTXO\". A series of off-chain, pre-signed transactions that a user can broadcast at any time to retrieve their bitcoin on-chain in an emergency. VTXOs have a limited lifetime and must be refreshed periodically.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "arkoor",
+			"category": "ark",
+			"aliases": [
+				"Ark out-of-round",
+				"out-of-round payment"
+			],
+			"soundsLike": [
+				"ark oor",
+				"arc oor"
+			],
+			"corrections": [
+				{
+					"match": "\\bar[ck][ -]?oor\\b",
+					"replace": "arkoor"
+				},
+				{
+					"match": "\\bar[ck]-?or\\b",
+					"replace": "arkoor"
+				}
+			],
+			"boost": true,
+			"summary": "An arkoor payment is an instant Ark-to-Ark payment, made without waiting for a round.",
+			"definition": "Short for \"Ark out-of-round\"—the method used for Ark payments. Arkoor transactions create spend VTXOs.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "boarding",
+			"category": "ark",
+			"aliases": [
+				"board",
+				"boards",
+				"boarded",
+				"onboard",
+				"onboarding"
+			],
+			"boost": true,
+			"summary": "Boarding moves on-chain bitcoin into Ark; it becomes spendable once the board transaction confirms.",
+			"definition": "The process of getting bitcoin onto an Ark. A user co-signs a special type of funding transaction with the Ark server and broadcasts it. Once confirmed, the resulting transaction represents the creation of a new VTXO.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "board transaction",
+			"category": "ark",
+			"summary": "The on-chain funding transaction created when a user boards onto Ark.",
+			"definition": "The on-chain funding transaction created when a user boards onto Ark. Once confirmed, it serves as the chain anchor for the resulting VTXO.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "board VTXO",
+			"category": "ark",
+			"aliases": [
+				"board VTXOs"
+			],
+			"boost": true,
+			"summary": "Board VTXOs are created when users first move bitcoin onto Ark, representing the simplest VTXO construction.",
+			"definition": "Board VTXOs are created when users first move bitcoin onto Ark, representing the simplest VTXO construction.",
+			"source": "https://second.tech/docs/learn/vtxo",
+			"quoted": true
+		},
+		{
+			"term": "offboarding",
+			"category": "ark",
+			"aliases": [
+				"offboard",
+				"offboards",
+				"offboarded"
+			],
+			"corrections": [
+				{
+					"match": "\\boff[ -]board(ing|s|ed)?\\b",
+					"replace": "offboard$1"
+				}
+			],
+			"boost": true,
+			"summary": "Offboarding is the normal way out: the Ark server cooperates and pays the amount to an on-chain address.",
+			"definition": "The standard, cooperative process of withdrawing bitcoin from Ark. A user forfeits one or more VTXOs and receives an output for the same amount on-chain.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "refresh",
+			"category": "ark",
+			"aliases": [
+				"refreshes",
+				"refreshing",
+				"refreshed",
+				"refresh VTXOs"
+			],
+			"boost": true,
+			"summary": "A refresh swaps VTXOs for new ones in a round before they expire; the wallet usually does it for you.",
+			"definition": "The process of forfeiting old VTXOs for new ones during an Ark round, before their lifetime ends. The wallet app participates interactively during the round, signing its own exit branches in the transaction tree. See also delegated refresh for mobile devices that cannot reliably wake during scheduled rounds.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "refresh VTXO",
+			"category": "ark",
+			"aliases": [
+				"refresh VTXOs"
+			],
+			"boost": true,
+			"summary": "Refresh VTXOs are created during Ark server rounds when users must refresh expiring VTXOs or when they want to improve security after receiving spend VTXOs.",
+			"definition": "Refresh VTXOs are created during Ark server rounds when users must refresh expiring VTXOs or when they want to improve security after receiving spend VTXOs.",
+			"source": "https://second.tech/docs/learn/vtxo",
+			"quoted": true
+		},
+		{
+			"term": "spend VTXO",
+			"category": "ark",
+			"aliases": [
+				"spend VTXOs"
+			],
+			"boost": true,
+			"summary": "Spend VTXOs are created instantly when users send payments within the same Ark server, using a technique known as arkoor (Ark out-of-round).",
+			"definition": "Spend VTXOs are created instantly when users send payments within the same Ark server, using a technique known as arkoor (Ark out-of-round).",
+			"source": "https://second.tech/docs/learn/vtxo",
+			"quoted": true
+		},
+		{
+			"term": "round",
+			"category": "ark",
+			"aliases": [
+				"rounds",
+				"Ark round"
+			],
+			"boost": true,
+			"summary": "A periodic event initiated by the Ark server where users can refresh their VTXOs.",
+			"definition": "A periodic event initiated by the Ark server where users can refresh their VTXOs. Only users participating in the refresh have their VTXOs included in the round transaction.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "round transaction",
+			"category": "ark",
+			"summary": "The root transaction of a transaction tree that is broadcast on-chain during an Ark round.",
+			"definition": "The root transaction of a transaction tree that is broadcast on-chain during an Ark round. This transaction provides users with verifiable assurance that they can unilaterally retrieve their bitcoin on-chain.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "in-round",
+			"category": "ark",
+			"summary": "A term used for VTXOs that are included in the transaction tree embedded in the round transaction.",
+			"definition": "A term used for VTXOs that are included in the transaction tree embedded in the round transaction. All refreshed VTXOs are in-round.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "lifetime",
+			"category": "ark",
+			"aliases": [
+				"VTXO lifetime",
+				"expiry",
+				"expire",
+				"expires",
+				"expiring",
+				"expiration"
+			],
+			"summary": "VTXOs expire, after 28 days on Second's server, so they have to be refreshed or spent before then.",
+			"definition": "The time limit set on VTXOs that requires users to spend or refresh their VTXOs before they expire. Once a VTXO expires, the Ark server can sweep the bitcoin on-chain and an emergency exit is no longer possible. The user can still refresh the VTXO, offboard it, or send it over Lightning with the server's cooperation, but can't send it as an Ark payment. On Second's Ark server, a standard VTXO lifetime is 28 days (server-configurable parameter).",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "emergency exit",
+			"category": "ark",
+			"aliases": [
+				"exit",
+				"exits",
+				"unilateral exit"
+			],
+			"boost": true,
+			"summary": "An emergency exit takes bitcoin on-chain without the server's help: slow and paid for in on-chain fees, but always possible.",
+			"definition": "The non-standard, non-cooperative process of withdrawing bitcoin from Ark. The user independently broadcasts each off-chain transaction from their VTXO in sequence, until the bitcoin is delivered to an address they solely control. The availability of emergency exits guarantees that users maintain self-custody of their bitcoin. Sometimes shortened to \"exit\".",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "exit transaction",
+			"category": "ark",
+			"summary": "A transaction that releases a user's bitcoin on-chain, at the leaf of a transaction tree.",
+			"definition": "A transaction that releases a user's bitcoin on-chain, at the leaf of a transaction tree. Used when a user wants to retrieve their bitcoin from the Ark protocol.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "exit claim",
+			"category": "ark",
+			"aliases": [
+				"claim",
+				"claim exited VTXOs"
+			],
+			"summary": "Sweeps all claimable exit outputs into a single on-chain transaction sent to the specified address.",
+			"definition": "Sweeps all claimable exit outputs into a single on-chain transaction sent to the specified address.",
+			"source": "https://second.tech/docs/barkd/api-reference/exits/claim-all-exited-vtxos",
+			"quoted": true
+		},
+		{
+			"term": "malicious exit",
+			"category": "ark",
+			"summary": "An attempt by a user to broadcast VTXO transactions on-chain (initiate an emergency exit) after forfeiting them.",
+			"definition": "An attempt by a user to broadcast VTXO transactions on-chain (initiate an emergency exit) after forfeiting them. Should always fail due to timelocks securing exits.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "forfeit",
+			"category": "ark",
+			"aliases": [
+				"forfeits",
+				"forfeiting",
+				"forfeited",
+				"forfeit transaction"
+			],
+			"boost": true,
+			"summary": "A transaction that allows a user to give up ownership of their VTXO.",
+			"definition": "A transaction that allows a user to give up ownership of their VTXO. It uses one of the two spending paths in an exit transaction and grants all bitcoin to the Ark server. Used in refreshes and offboards.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "connector",
+			"category": "ark",
+			"aliases": [
+				"connectors"
+			],
+			"boost": true,
+			"summary": "A mechanism that ensures forfeit transactions are only valid if a specific on-chain payment is broadcast.",
+			"definition": "A mechanism that ensures forfeit transactions are only valid if a specific on-chain payment is broadcast. Used in on-chain payments and offboards. For rounds, connectors have been replaced by hash-locks.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "hash-lock",
+			"category": "ark",
+			"aliases": [
+				"hash-locks",
+				"hashlock",
+				"hash lock"
+			],
+			"summary": "A lock that releases bitcoin to whoever reveals the preimage of a hash.",
+			"definition": "A lock that releases bitcoin to whoever reveals the preimage of a hash. In Second's Ark, hash-locks replaced connectors in rounds (hArk).",
+			"source": "https://second.tech/docs/learn/forfeits",
+			"quoted": false
+		},
+		{
+			"term": "chain anchor",
+			"category": "ark",
+			"summary": "The on-chain transaction output that a VTXO's validity depends on.",
+			"definition": "The on-chain transaction output that a VTXO's validity depends on. For in-round VTXOs this is an output of the round transaction; for boarded VTXOs it is an output of the board transaction. The chain anchor must be confirmed on-chain for the VTXO to be spendable.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "transaction tree",
+			"category": "ark",
+			"summary": "A hierarchical structure of transactions that enables UTXO-sharing.",
+			"definition": "A hierarchical structure of transactions that enables UTXO-sharing. It consists of a root transaction (broadcast on-chain), branch transactions, and leaf transactions, allowing multiple users to share a single on-chain UTXO while maintaining control of their bitcoin.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "transaction tree depth",
+			"category": "ark",
+			"aliases": [
+				"tree depth",
+				"exit depth"
+			],
+			"summary": "The number of transactions a user must broadcast to complete an emergency exit.",
+			"definition": "The number of transactions a user must broadcast to complete an emergency exit. For a refresh VTXO, this is determined by the number of branch layers in the tree, which scales logarithmically with the number of users in the round. Each spend VTXO in a chain adds to the exit length.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "branch",
+			"category": "ark",
+			"aliases": [
+				"branch transaction"
+			],
+			"summary": "A series of interdependent, off-chain transactions that break up the round transaction into successively smaller chunks until a user's Ark balance is released.",
+			"definition": "A series of interdependent, off-chain transactions that break up the round transaction into successively smaller chunks until a user's Ark balance is released. Each branch transaction can only be broadcast after the preceding branch transaction has been broadcast.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "leaf",
+			"category": "ark",
+			"aliases": [
+				"leaf transaction"
+			],
+			"summary": "The final transaction in a branch, releasing a user's bitcoin on-chain.",
+			"definition": "The final transaction in a branch, releasing a user's bitcoin on-chain. See exit transaction.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "root",
+			"category": "ark",
+			"aliases": [
+				"root transaction"
+			],
+			"summary": "The single on-chain transaction that all associated branch and leaf transactions emanate from.",
+			"definition": "The single on-chain transaction that all associated branch and leaf transactions emanate from. For in-round VTXOs, this is the round transaction; for boarded VTXOs, it is the board transaction. See chain anchor.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "sweep",
+			"category": "ark",
+			"aliases": [
+				"sweeps",
+				"swept"
+			],
+			"summary": "The process by which the Ark server transfers all remaining bitcoin from an expired round to its operational wallet, including the bitcoin in VTXOs their owners never refreshed.",
+			"definition": "The process by which the Ark server transfers all remaining bitcoin from an expired round to its operational wallet, including the bitcoin in VTXOs their owners never refreshed. Usually requires only a single on-chain transaction, because the whole round still sits in one output of the round transaction. If any user in the round has started or completed an emergency exit, the broadcast branch transactions split the round's bitcoin across more on-chain outputs. The server must then sweep more outputs and pay more in on-chain fees.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "delegated refresh",
+			"category": "ark",
+			"aliases": [
+				"delegated refreshes"
+			],
+			"summary": "Refreshing VTXOs by having designated co-signers sign on the user's behalf, designed for mobile devices that cannot reliably wake during scheduled round windows.",
+			"definition": "Refreshing VTXOs by having designated co-signers sign on the user's behalf, designed for mobile devices that cannot reliably wake during scheduled round windows. Requires trusting that at least one designated co-signer behaves honestly.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "hArk",
+			"category": "ark",
+			"aliases": [
+				"Hash-lock Ark"
+			],
+			"soundsLike": [
+				"h ark",
+				"h arc"
+			],
+			"corrections": [
+				{
+					"match": "\\bh[ -]ar[ck]\\b",
+					"replace": "hArk"
+				},
+				{
+					"match": "\\bhark\\b",
+					"replace": "hArk"
+				}
+			],
+			"pronounce": {
+				"alias": "H Ark"
+			},
+			"boost": true,
+			"summary": "Short for \"Hash-lock Ark\"—a protocol enhancement introduced in January 2026 that enables delegated refreshes for mobile devices and streamlines the refresh process.",
+			"definition": "Short for \"Hash-lock Ark\"—a protocol enhancement introduced in January 2026 that enables delegated refreshes for mobile devices and streamlines the refresh process.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "clArk",
+			"category": "ark",
+			"aliases": [
+				"covenant-less Ark"
+			],
+			"corrections": [
+				{
+					"match": "\\bc[ -]?l[ -]ar[ck]\\b",
+					"replace": "clArk"
+				}
+			],
+			"pronounce": {
+				"alias": "C L Ark"
+			},
+			"boost": true,
+			"summary": "Short for \"covenant-less Ark\"—an implementation variant that uses recursive multisigs instead of CTV covenants.",
+			"definition": "Short for \"covenant-less Ark\"—an implementation variant that uses recursive multisigs instead of CTV covenants. Each node policy contains a multisig with all the public keys of all the leaves below it, plus the server key.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "Lightning gateway",
+			"category": "ark",
+			"summary": "A Lightning node connected to the Ark server that enables users to transact with the broader Lightning Network and users on other Ark servers.",
+			"definition": "A Lightning node connected to the Ark server that enables users to transact with the broader Lightning Network and users on other Ark servers.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "movement",
+			"category": "ark",
+			"aliases": [
+				"movements"
+			],
+			"summary": "A wallet-level operation that changes the state of one or more VTXOs—such as a round participation, arkoor payment, board, offboard, exit, or Lightning send/receive.",
+			"definition": "A wallet-level operation that changes the state of one or more VTXOs—such as a round participation, arkoor payment, board, offboard, exit, or Lightning send/receive. A movement is created when the operation starts, locks any affected VTXOs while in progress, and transitions to a final status (successful, failed, or canceled) when the operation completes.",
+			"source": "https://second.tech/docs/learn/glossary",
+			"quoted": true
+		},
+		{
+			"term": "mailbox",
+			"category": "ark",
+			"aliases": [
+				"mailbox restore"
+			],
+			"summary": "Every Bark wallet posts a record of its VTXOs to a mailbox on the Ark server that only its mnemonic can unlock.",
+			"definition": "Every Bark wallet posts a record of its VTXOs to a mailbox on the Ark server that only its mnemonic can unlock.",
+			"source": "https://second.tech/docs/backups",
+			"quoted": true
+		},
+		{
+			"term": "liquidity",
+			"category": "ark",
+			"summary": "Ark servers deploy bitcoin upfront for refreshes, on-chain payments, and Lightning payments.",
+			"definition": "Ark servers deploy bitcoin upfront for refreshes, on-chain payments, and Lightning payments.",
+			"source": "https://second.tech/docs/learn/liquidity",
+			"quoted": true
+		},
+		{
+			"term": "Ark address",
+			"category": "ark",
+			"aliases": [
+				"ark1",
+				"tark1"
+			],
+			"summary": "An address for receiving Ark payments.",
+			"definition": "An address for receiving Ark payments. Mainnet ones start ark1, signet ones tark1. Too long to read aloud: show it as a QR.",
+			"quoted": false
+		},
+		{
+			"term": "Pay2Anchor",
+			"category": "ark",
+			"aliases": [
+				"P2A",
+				"pay to anchor",
+				"anchor output"
+			],
+			"soundsLike": [
+				"pay to anchor",
+				"pay two anchor"
+			],
+			"corrections": [
+				{
+					"match": "\\bpay[ -]?(?:2|to|two)[ -]?anchor\\b",
+					"replace": "Pay2Anchor"
+				},
+				{
+					"match": "\\bp[ .-]?2[ .-]?a\\b",
+					"replace": "Pay2Anchor"
+				}
+			],
+			"boost": true,
+			"summary": "A tiny output anyone can spend to raise a transaction's fee with CPFP.",
+			"definition": "A tiny output anyone can spend to raise a transaction's fee with CPFP. Bark uses it to make emergency exits cheaper.",
+			"source": "https://second.tech/docs/changelog",
+			"quoted": false
+		}
+	]
+}

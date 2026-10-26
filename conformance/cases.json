@@ -1,0 +1,149 @@
+{
+	"about": "Every reference client must give these outputs. \"correct\", \"pronounce\" and \"lookup\" use examples/bark.vocabulary.json; \"devops\" uses examples/devops.vocabulary.json. Add a case when you find a mishearing in the wild.",
+	"vocabulary": "../examples/bark.vocabulary.json",
+	"correct": [
+		{
+			"heard": "I'm looking into Arc, the arc team",
+			"text": "I'm looking into Ark, the Ark team",
+			"why": "unprompted Whisper large-v3-turbo, btc++ Berlin 2026"
+		},
+		{
+			"heard": "how many v t x os does bark d hold",
+			"text": "how many VTXOs does barkd hold"
+		},
+		{
+			"heard": "send it as an arc oor payment",
+			"text": "send it as an arkoor payment"
+		},
+		{
+			"heard": "the h arc upgrade on sig net",
+			"text": "the hArk upgrade on signet"
+		},
+		{
+			"heard": "a bolt eleven invoice at 30 sats per v byte",
+			"text": "a BOLT11 invoice at 30 sat/vB"
+		},
+		{
+			"heard": "captain dee on main net with pay to anchor",
+			"text": "captaind on mainnet with Pay2Anchor"
+		},
+		{
+			"heard": "an l n url, an h.t.l.c and mu sig two",
+			"text": "an LNURL, an HTLC and MuSig2"
+		},
+		{
+			"heard": "off board it",
+			"text": "offboard it"
+		},
+		{
+			"heard": "pay over Ark or Lightning?",
+			"text": "pay over Ark or Lightning?",
+			"why": "ordinary speech survives"
+		},
+		{
+			"heard": "I'll wait a second",
+			"text": "I'll wait a second"
+		},
+		{
+			"heard": "a round of drinks",
+			"text": "a round of drinks"
+		}
+	],
+	"pronounce": [
+		{
+			"text": "3 VTXOs via barkd on signet",
+			"say": "3 V T X Os via bark D on sig-net"
+		},
+		{
+			"text": "an LNURL and a txid",
+			"say": "an L N URL and a T X I D"
+		}
+	],
+	"lookup": [
+		{
+			"query": "v t x o",
+			"term": "VTXO"
+		},
+		{
+			"query": "arc",
+			"term": "Ark"
+		},
+		{
+			"query": "pending in round",
+			"term": "pending in round"
+		},
+		{
+			"query": "aspd",
+			"term": "captaind"
+		},
+		{
+			"query": "quantum tunnelling",
+			"term": null
+		}
+	],
+	"invalid": [
+		{
+			"why": "a correction that inserts other words",
+			"term": {
+				"term": "VTXO",
+				"corrections": [
+					{
+						"match": "\\bno\\b",
+						"replace": "yes"
+					}
+				]
+			}
+		},
+		{
+			"why": "lookbehind is not portable",
+			"term": {
+				"term": "Ark",
+				"corrections": [
+					{
+						"match": "(?<=the )arc",
+						"replace": "Ark"
+					}
+				]
+			}
+		},
+		{
+			"why": "inline flags are not allowed",
+			"term": {
+				"term": "Ark",
+				"corrections": [
+					{
+						"match": "(?i)arc",
+						"replace": "Ark"
+					}
+				]
+			}
+		}
+	],
+	"devops": {
+		"vocabulary": "../examples/devops.vocabulary.json",
+		"correct": [
+			{
+				"heard": "run cube cuddle on staging",
+				"text": "run kubectl on staging"
+			},
+			{
+				"heard": "cube ctl get pods",
+				"text": "kubectl get pods"
+			},
+			{
+				"heard": "is k 8 s up",
+				"text": "is k8s up"
+			},
+			{
+				"heard": "a cube of ice",
+				"text": "a cube of ice"
+			}
+		],
+		"pronounce": [
+			{
+				"text": "Run kubectl.",
+				"say": "Run cube control."
+			}
+		]
+	}
+}

@@ -1,0 +1,562 @@
+{
+	"voiceVocabulary": "draft-1",
+	"name": "Bitcoin",
+	"description": "Bitcoin words a wallet conversation uses.",
+	"language": "en",
+	"updated": "2026-10-26",
+	"terms": [
+		{
+			"term": "bitcoin",
+			"category": "bitcoin",
+			"aliases": [
+				"BTC",
+				"bitcoins"
+			],
+			"summary": "The money this wallet holds.",
+			"definition": "The money this wallet holds. One bitcoin is 100 million sats.",
+			"quoted": false
+		},
+		{
+			"term": "sats",
+			"category": "bitcoin",
+			"aliases": [
+				"sat",
+				"satoshi",
+				"satoshis"
+			],
+			"soundsLike": [
+				"sads"
+			],
+			"corrections": [
+				{
+					"match": "\\b(?:sat|sad)s\\b",
+					"replace": "sats"
+				}
+			],
+			"boost": true,
+			"summary": "The unit this wallet speaks in: one hundred-millionth of a bitcoin.",
+			"definition": "The unit this wallet speaks in: one hundred-millionth of a bitcoin.",
+			"quoted": false
+		},
+		{
+			"term": "BTC",
+			"category": "bitcoin",
+			"soundsLike": [
+				"b t c"
+			],
+			"corrections": [
+				{
+					"match": "\\bb[ .-]?t[ .-]?c(s?)\\b",
+					"replace": "BTC$1"
+				}
+			],
+			"pronounce": {
+				"alias": "B T C"
+			},
+			"boost": true,
+			"summary": "The ticker for bitcoin.",
+			"definition": "The ticker for bitcoin. 1 BTC is 100,000,000 sats.",
+			"quoted": false
+		},
+		{
+			"term": "on-chain",
+			"category": "bitcoin",
+			"aliases": [
+				"onchain",
+				"on chain"
+			],
+			"soundsLike": [
+				"on chain"
+			],
+			"corrections": [
+				{
+					"match": "\\bon chain\\b",
+					"replace": "on-chain"
+				}
+			],
+			"boost": true,
+			"summary": "Recorded in a bitcoin block.",
+			"definition": "Recorded in a bitcoin block. On-chain payments are final once confirmed, but slower and costlier than Ark or Lightning.",
+			"quoted": false
+		},
+		{
+			"term": "off-chain",
+			"category": "bitcoin",
+			"aliases": [
+				"offchain",
+				"off chain"
+			],
+			"soundsLike": [
+				"off chain"
+			],
+			"corrections": [
+				{
+					"match": "\\boff chain\\b",
+					"replace": "off-chain"
+				}
+			],
+			"boost": true,
+			"summary": "Held or paid without a transaction in a block, as on Ark and Lightning.",
+			"definition": "Held or paid without a transaction in a block, as on Ark and Lightning.",
+			"quoted": false
+		},
+		{
+			"term": "UTXO",
+			"category": "bitcoin",
+			"aliases": [
+				"UTXOs",
+				"unspent transaction output"
+			],
+			"soundsLike": [
+				"u t x o"
+			],
+			"corrections": [
+				{
+					"match": "\\bu[ .-]?t[ .-]?x[ .-]?o(s?)\\b",
+					"replace": "UTXO$1"
+				}
+			],
+			"pronounce": {
+				"alias": "U T X O"
+			},
+			"boost": true,
+			"summary": "An unspent transaction output: one coin in bitcoin's ledger.",
+			"definition": "An unspent transaction output: one coin in bitcoin's ledger. A VTXO is Ark's virtual version of one.",
+			"quoted": false
+		},
+		{
+			"term": "txid",
+			"category": "bitcoin",
+			"aliases": [
+				"transaction ID",
+				"TXID"
+			],
+			"corrections": [
+				{
+					"match": "\\bt[ .-]?x[ .-]?i[ .-]?d\\b",
+					"replace": "txid"
+				},
+				{
+					"match": "\\btx id\\b",
+					"replace": "txid"
+				}
+			],
+			"pronounce": {
+				"alias": "T X I D"
+			},
+			"boost": true,
+			"summary": "A transaction's ID, a 64-character hash.",
+			"definition": "A transaction's ID, a 64-character hash. Never read one aloud: say its last four characters.",
+			"quoted": false
+		},
+		{
+			"term": "confirmation",
+			"category": "bitcoin",
+			"aliases": [
+				"confirmations",
+				"confirmed",
+				"unconfirmed"
+			],
+			"summary": "A block that includes a transaction (and each block after it).",
+			"definition": "A block that includes a transaction (and each block after it). More confirmations, more final.",
+			"quoted": false
+		},
+		{
+			"term": "block height",
+			"category": "bitcoin",
+			"aliases": [
+				"tip",
+				"chain tip",
+				"height"
+			],
+			"summary": "How many blocks the chain has.",
+			"definition": "How many blocks the chain has. VTXO expiries are block heights; a block comes about every 10 minutes.",
+			"quoted": false
+		},
+		{
+			"term": "mempool",
+			"category": "bitcoin",
+			"soundsLike": [
+				"mem pool"
+			],
+			"corrections": [
+				{
+					"match": "\\bmem[ -]pool\\b",
+					"replace": "mempool"
+				}
+			],
+			"boost": true,
+			"summary": "Where unconfirmed transactions wait to be mined.",
+			"definition": "Where unconfirmed transactions wait to be mined.",
+			"quoted": false
+		},
+		{
+			"term": "fee rate",
+			"category": "bitcoin",
+			"aliases": [
+				"feerate",
+				"sat/vB",
+				"sats per vbyte"
+			],
+			"corrections": [
+				{
+					"match": "\\bsats? per v[ -]?bytes?\\b",
+					"replace": "sat/vB"
+				}
+			],
+			"boost": true,
+			"summary": "What a transaction pays per unit of size, in sats per virtual byte (sat/vB).",
+			"definition": "What a transaction pays per unit of size, in sats per virtual byte (sat/vB). Higher confirms sooner.",
+			"quoted": false
+		},
+		{
+			"term": "signet",
+			"category": "bitcoin",
+			"soundsLike": [
+				"sig net",
+				"cygnet"
+			],
+			"corrections": [
+				{
+					"match": "\\bsig[ -]net\\b",
+					"replace": "signet"
+				},
+				{
+					"match": "\\bcygnet\\b",
+					"replace": "signet"
+				}
+			],
+			"pronounce": {
+				"alias": "sig-net"
+			},
+			"boost": true,
+			"summary": "A test bitcoin network with worthless coins.",
+			"definition": "A test bitcoin network with worthless coins. Second runs a signet Ark server for trying Bark.",
+			"quoted": false
+		},
+		{
+			"term": "mainnet",
+			"category": "bitcoin",
+			"soundsLike": [
+				"main net"
+			],
+			"corrections": [
+				{
+					"match": "\\bmain[ -]net\\b",
+					"replace": "mainnet"
+				}
+			],
+			"boost": true,
+			"summary": "The real bitcoin network, with real money.",
+			"definition": "The real bitcoin network, with real money.",
+			"quoted": false
+		},
+		{
+			"term": "regtest",
+			"category": "bitcoin",
+			"soundsLike": [
+				"reg test"
+			],
+			"corrections": [
+				{
+					"match": "\\breg[ -]test\\b",
+					"replace": "regtest"
+				}
+			],
+			"boost": true,
+			"summary": "A private bitcoin network for development, where you mine blocks yourself.",
+			"definition": "A private bitcoin network for development, where you mine blocks yourself.",
+			"quoted": false
+		},
+		{
+			"term": "Esplora",
+			"category": "bitcoin",
+			"boost": true,
+			"summary": "A block explorer API.",
+			"definition": "A block explorer API. Bark can read the chain through one instead of running Bitcoin Core.",
+			"quoted": false
+		},
+		{
+			"term": "Bitcoin Core",
+			"category": "bitcoin",
+			"aliases": [
+				"bitcoind"
+			],
+			"boost": true,
+			"summary": "The reference bitcoin node software; bitcoind is its daemon.",
+			"definition": "The reference bitcoin node software; bitcoind is its daemon.",
+			"quoted": false
+		},
+		{
+			"term": "mnemonic",
+			"category": "bitcoin",
+			"aliases": [
+				"seed phrase",
+				"recovery phrase",
+				"seed",
+				"12 words",
+				"BIP39"
+			],
+			"summary": "The 12 words that back up a wallet: whoever has them has the money.",
+			"definition": "The 12 words that back up a wallet: whoever has them has the money. bark-voice never reads or shows them.",
+			"quoted": false
+		},
+		{
+			"term": "PSBT",
+			"category": "bitcoin",
+			"aliases": [
+				"partially signed bitcoin transaction"
+			],
+			"soundsLike": [
+				"p s b t"
+			],
+			"corrections": [
+				{
+					"match": "\\bp[ .-]?s[ .-]?b[ .-]?t(s?)\\b",
+					"replace": "PSBT$1"
+				}
+			],
+			"pronounce": {
+				"alias": "P S B T"
+			},
+			"boost": true,
+			"summary": "A partially signed bitcoin transaction, passed between signers until it's complete.",
+			"definition": "A partially signed bitcoin transaction, passed between signers until it's complete.",
+			"quoted": false
+		},
+		{
+			"term": "taproot",
+			"category": "bitcoin",
+			"soundsLike": [
+				"tap root"
+			],
+			"corrections": [
+				{
+					"match": "\\btap[ -]root\\b",
+					"replace": "taproot"
+				}
+			],
+			"boost": true,
+			"summary": "Bitcoin's 2021 upgrade: Schnorr signatures and script trees.",
+			"definition": "Bitcoin's 2021 upgrade: Schnorr signatures and script trees. Ark's transactions use it.",
+			"quoted": false
+		},
+		{
+			"term": "MuSig2",
+			"category": "bitcoin",
+			"aliases": [
+				"MuSig"
+			],
+			"soundsLike": [
+				"mu sig two",
+				"musig two"
+			],
+			"corrections": [
+				{
+					"match": "\\bmu[ -]?sig[ -]?(?:2|two)\\b",
+					"replace": "MuSig2"
+				}
+			],
+			"pronounce": {
+				"alias": "mu sig two"
+			},
+			"boost": true,
+			"summary": "A way for several keys to make one Schnorr signature.",
+			"definition": "A way for several keys to make one Schnorr signature. Ark users and the server co-sign with it.",
+			"quoted": false
+		},
+		{
+			"term": "Schnorr",
+			"category": "bitcoin",
+			"aliases": [
+				"Schnorr signature"
+			],
+			"summary": "The signature scheme taproot brought to bitcoin.",
+			"definition": "The signature scheme taproot brought to bitcoin.",
+			"quoted": false
+		},
+		{
+			"term": "timelock",
+			"category": "bitcoin",
+			"aliases": [
+				"timelocks",
+				"time lock"
+			],
+			"soundsLike": [
+				"time lock"
+			],
+			"corrections": [
+				{
+					"match": "\\btime[ -]locks?\\b",
+					"replace": "timelock"
+				}
+			],
+			"boost": true,
+			"summary": "A rule that coins can't move until a time or block height.",
+			"definition": "A rule that coins can't move until a time or block height. Ark's exits and expiries rest on them.",
+			"quoted": false
+		},
+		{
+			"term": "CSV",
+			"category": "bitcoin",
+			"aliases": [
+				"CheckSequenceVerify",
+				"relative timelock"
+			],
+			"soundsLike": [
+				"c s v"
+			],
+			"corrections": [
+				{
+					"match": "\\bc[ .-]?s[ .-]?v(s?)\\b",
+					"replace": "CSV$1"
+				}
+			],
+			"pronounce": {
+				"alias": "C S V"
+			},
+			"boost": true,
+			"summary": "CheckSequenceVerify: a relative timelock, counted from when a coin confirmed.",
+			"definition": "CheckSequenceVerify: a relative timelock, counted from when a coin confirmed.",
+			"quoted": false
+		},
+		{
+			"term": "CLTV",
+			"category": "bitcoin",
+			"aliases": [
+				"CheckLockTimeVerify",
+				"absolute timelock"
+			],
+			"soundsLike": [
+				"c l t v"
+			],
+			"corrections": [
+				{
+					"match": "\\bc[ .-]?l[ .-]?t[ .-]?v(s?)\\b",
+					"replace": "CLTV$1"
+				}
+			],
+			"pronounce": {
+				"alias": "C L T V"
+			},
+			"boost": true,
+			"summary": "CheckLockTimeVerify: an absolute timelock, at a fixed height or time.",
+			"definition": "CheckLockTimeVerify: an absolute timelock, at a fixed height or time.",
+			"quoted": false
+		},
+		{
+			"term": "CPFP",
+			"category": "bitcoin",
+			"aliases": [
+				"child pays for parent"
+			],
+			"soundsLike": [
+				"c p f p"
+			],
+			"corrections": [
+				{
+					"match": "\\bc[ .-]?p[ .-]?f[ .-]?p(s?)\\b",
+					"replace": "CPFP$1"
+				}
+			],
+			"pronounce": {
+				"alias": "C P F P"
+			},
+			"boost": true,
+			"summary": "Child pays for parent: spending a stuck transaction's output with a high fee so miners take both.",
+			"definition": "Child pays for parent: spending a stuck transaction's output with a high fee so miners take both.",
+			"quoted": false
+		},
+		{
+			"term": "RBF",
+			"category": "bitcoin",
+			"aliases": [
+				"replace-by-fee"
+			],
+			"soundsLike": [
+				"r b f"
+			],
+			"corrections": [
+				{
+					"match": "\\br[ .-]?b[ .-]?f(s?)\\b",
+					"replace": "RBF$1"
+				}
+			],
+			"pronounce": {
+				"alias": "R B F"
+			},
+			"boost": true,
+			"summary": "Replace-by-fee: re-sending an unconfirmed transaction with a higher fee.",
+			"definition": "Replace-by-fee: re-sending an unconfirmed transaction with a higher fee.",
+			"quoted": false
+		},
+		{
+			"term": "multisig",
+			"category": "bitcoin",
+			"aliases": [
+				"multi-signature"
+			],
+			"summary": "Coins that need signatures from several keys to move.",
+			"definition": "Coins that need signatures from several keys to move.",
+			"quoted": false
+		},
+		{
+			"term": "covenant",
+			"category": "bitcoin",
+			"aliases": [
+				"covenants",
+				"CTV"
+			],
+			"summary": "A rule on where coins can go next, not only who can spend them.",
+			"definition": "A rule on where coins can go next, not only who can spend them. clArk works without one.",
+			"quoted": false
+		},
+		{
+			"term": "payjoin",
+			"category": "bitcoin",
+			"soundsLike": [
+				"pay join"
+			],
+			"corrections": [
+				{
+					"match": "\\bpay[ -]join\\b",
+					"replace": "payjoin"
+				}
+			],
+			"boost": true,
+			"summary": "A payment where sender and receiver both add inputs, which breaks the usual chain-analysis guesses.",
+			"definition": "A payment where sender and receiver both add inputs, which breaks the usual chain-analysis guesses.",
+			"quoted": false
+		},
+		{
+			"term": "BIP-321",
+			"category": "bitcoin",
+			"aliases": [
+				"BIP321",
+				"bitcoin URI",
+				"payment link"
+			],
+			"corrections": [
+				{
+					"match": "\\bbip[ -]?321\\b",
+					"replace": "BIP-321"
+				}
+			],
+			"boost": true,
+			"summary": "The bitcoin: payment link format.",
+			"definition": "The bitcoin: payment link format. One link can carry an on-chain address, an Ark address and a Lightning invoice.",
+			"quoted": false
+		},
+		{
+			"term": "self-custody",
+			"category": "bitcoin",
+			"aliases": [
+				"self-custodial",
+				"non-custodial"
+			],
+			"summary": "Only you can move your bitcoin.",
+			"definition": "Only you can move your bitcoin. On Ark that holds because you can always exit on your own.",
+			"quoted": false
+		}
+	]
+}

@@ -1,0 +1,158 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://gitlab.com/matthewvuk/voice-vocabulary/-/raw/main/schema/vocabulary.schema.json",
+	"title": "Voice vocabulary document (draft-1)",
+	"description": "The words an MCP server's domain uses, how speech-to-text mishears them, how to say them, and what they mean. See SPEC.md.",
+	"type": "object",
+	"required": [
+		"voiceVocabulary",
+		"name",
+		"language",
+		"terms"
+	],
+	"properties": {
+		"voiceVocabulary": {
+			"const": "draft-1"
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 100
+		},
+		"language": {
+			"type": "string",
+			"pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+		},
+		"description": {
+			"type": "string",
+			"maxLength": 300
+		},
+		"source": {
+			"type": "string",
+			"format": "uri"
+		},
+		"updated": {
+			"type": "string",
+			"format": "date"
+		},
+		"primer": {
+			"type": "string",
+			"maxLength": 2000
+		},
+		"transcriptionPrompt": {
+			"type": "string",
+			"maxLength": 1000
+		},
+		"includes": {
+			"type": "array",
+			"maxItems": 8,
+			"items": {
+				"type": "string",
+				"format": "uri"
+			}
+		},
+		"terms": {
+			"type": "array",
+			"maxItems": 2000,
+			"items": {
+				"$ref": "#/$defs/term"
+			}
+		}
+	},
+	"$defs": {
+		"term": {
+			"type": "object",
+			"required": [
+				"term"
+			],
+			"properties": {
+				"term": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 100
+				},
+				"category": {
+					"type": "string",
+					"maxLength": 50
+				},
+				"aliases": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 100
+					}
+				},
+				"soundsLike": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 100
+					}
+				},
+				"corrections": {
+					"type": "array",
+					"maxItems": 20,
+					"items": {
+						"$ref": "#/$defs/correction"
+					}
+				},
+				"pronounce": {
+					"type": "object",
+					"minProperties": 1,
+					"properties": {
+						"alias": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 100
+						},
+						"ipa": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 100
+						}
+					},
+					"additionalProperties": false
+				},
+				"boost": {
+					"type": "boolean"
+				},
+				"summary": {
+					"type": "string",
+					"maxLength": 300
+				},
+				"definition": {
+					"type": "string",
+					"maxLength": 1500
+				},
+				"source": {
+					"type": "string",
+					"format": "uri"
+				},
+				"quoted": {
+					"type": "boolean"
+				}
+			}
+		},
+		"correction": {
+			"type": "object",
+			"required": [
+				"match",
+				"replace"
+			],
+			"properties": {
+				"match": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 200
+				},
+				"replace": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 120
+				}
+			}
+		}
+	}
+}

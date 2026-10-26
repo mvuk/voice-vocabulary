@@ -1,0 +1,30 @@
+{
+	"voiceVocabulary": "draft-1",
+	"name": "Example DevOps",
+	"language": "en",
+	"description": "Deploys and cluster operations for Example Corp: the example in SPEC.md.",
+	"updated": "2026-10-26",
+	"primer": "kubectl is the command-line tool for Kubernetes clusters. Staging and prod are the two clusters.",
+	"terms": [
+		{
+			"term": "kubectl",
+			"category": "tools",
+			"soundsLike": ["cube control", "cube cuddle", "cube c t l", "kube control"],
+			"pronounce": { "alias": "cube control" },
+			"boost": true,
+			"summary": "kubectl is the command-line tool for Kubernetes clusters.",
+			"definition": "The Kubernetes command-line tool, for running commands against Kubernetes clusters.",
+			"source": "https://kubernetes.io/docs/reference/kubectl/",
+			"quoted": false
+		},
+		{
+			"term": "Kubernetes",
+			"category": "tools",
+			"aliases": ["k8s"],
+			"soundsLike": ["cooper netties", "kuber netes"],
+			"corrections": [{ "match": "\\bk[ .-]?8[ .-]?s\\b", "replace": "k8s" }],
+			"boost": true,
+			"summary": "Kubernetes runs and scales the company's containers."
+		}
+	]
+}

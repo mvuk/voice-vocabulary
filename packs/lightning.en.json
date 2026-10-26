@@ -1,0 +1,234 @@
+{
+	"voiceVocabulary": "draft-1",
+	"name": "Lightning",
+	"description": "Lightning payments: invoices, offers, addresses, zaps.",
+	"language": "en",
+	"updated": "2026-10-26",
+	"terms": [
+		{
+			"term": "Lightning",
+			"category": "lightning",
+			"aliases": [
+				"Lightning Network",
+				"LN"
+			],
+			"corrections": [
+				{
+					"match": "\\blightning(?= (?:invoice|address|payment|network|gateway))",
+					"replace": "Lightning"
+				}
+			],
+			"boost": true,
+			"summary": "Bitcoin's network of payment channels.",
+			"definition": "Bitcoin's network of payment channels. An Ark wallet pays and gets paid over Lightning through the Ark server's Lightning gateway.",
+			"quoted": false
+		},
+		{
+			"term": "BOLT11",
+			"category": "lightning",
+			"aliases": [
+				"BOLT11 invoice",
+				"Lightning invoice",
+				"invoice"
+			],
+			"soundsLike": [
+				"bolt eleven",
+				"bolt 11"
+			],
+			"corrections": [
+				{
+					"match": "\\bbolt[ -]?(?:11|eleven)\\b",
+					"replace": "BOLT11"
+				}
+			],
+			"boost": true,
+			"summary": "The standard Lightning invoice: a one-time payment request, usually for a fixed amount.",
+			"definition": "The standard Lightning invoice: a one-time payment request, usually for a fixed amount.",
+			"quoted": false
+		},
+		{
+			"term": "BOLT12",
+			"category": "lightning",
+			"aliases": [
+				"BOLT12 offer",
+				"offer"
+			],
+			"soundsLike": [
+				"bolt twelve",
+				"bolt 12"
+			],
+			"corrections": [
+				{
+					"match": "\\bbolt[ -]?(?:12|twelve)\\b",
+					"replace": "BOLT12"
+				}
+			],
+			"boost": true,
+			"summary": "A reusable Lightning payment request, called an offer: it can be paid many times.",
+			"definition": "A reusable Lightning payment request, called an offer: it can be paid many times.",
+			"quoted": false
+		},
+		{
+			"term": "Lightning address",
+			"category": "lightning",
+			"aliases": [
+				"LN address"
+			],
+			"summary": "An email-style address (name@domain) that a wallet turns into a Lightning invoice.",
+			"definition": "An email-style address (name@domain) that a wallet turns into a Lightning invoice. Paying one always needs an amount.",
+			"quoted": false
+		},
+		{
+			"term": "LNURL",
+			"category": "lightning",
+			"corrections": [
+				{
+					"match": "\\bl[ .-]?n[ .-]?u[ .-]?r[ .-]?l\\b",
+					"replace": "LNURL"
+				},
+				{
+					"match": "\\bl[ .-]?n[ .-]?url\\b",
+					"replace": "LNURL"
+				}
+			],
+			"pronounce": {
+				"alias": "L N URL"
+			},
+			"boost": true,
+			"summary": "A family of Lightning links (pay, withdraw, login) that a wallet follows to get an invoice or a payment.",
+			"definition": "A family of Lightning links (pay, withdraw, login) that a wallet follows to get an invoice or a payment.",
+			"quoted": false
+		},
+		{
+			"term": "HTLC",
+			"category": "lightning",
+			"aliases": [
+				"HTLCs",
+				"hash time-locked contract"
+			],
+			"soundsLike": [
+				"h t l c"
+			],
+			"corrections": [
+				{
+					"match": "\\bh[ .-]?t[ .-]?l[ .-]?c(s?)\\b",
+					"replace": "HTLC$1"
+				}
+			],
+			"pronounce": {
+				"alias": "H T L C"
+			},
+			"boost": true,
+			"summary": "A payment that unlocks with a secret (the preimage) before a deadline, or returns to the sender after it.",
+			"definition": "A payment that unlocks with a secret (the preimage) before a deadline, or returns to the sender after it. Lightning payments are chains of HTLCs.",
+			"quoted": false
+		},
+		{
+			"term": "preimage",
+			"category": "lightning",
+			"aliases": [
+				"payment preimage"
+			],
+			"summary": "The secret that proves a Lightning payment was made: whoever reveals it gets paid.",
+			"definition": "The secret that proves a Lightning payment was made: whoever reveals it gets paid.",
+			"quoted": false
+		},
+		{
+			"term": "payment hash",
+			"category": "lightning",
+			"summary": "The hash of a payment's preimage.",
+			"definition": "The hash of a payment's preimage. An invoice carries it; the payment settles when the preimage is revealed.",
+			"quoted": false
+		},
+		{
+			"term": "L402",
+			"category": "lightning",
+			"soundsLike": [
+				"l four oh two"
+			],
+			"corrections": [
+				{
+					"match": "\\bl[ .-]?4[ .-]?0[ .-]?2\\b",
+					"replace": "L402"
+				},
+				{
+					"match": "\\bl four oh two\\b",
+					"replace": "L402"
+				}
+			],
+			"pronounce": {
+				"alias": "L four oh two"
+			},
+			"boost": true,
+			"summary": "Paying for an API or web resource with Lightning: the server answers 402 Payment Required with an invoice, and the paid preimage unlocks it.",
+			"definition": "Paying for an API or web resource with Lightning: the server answers 402 Payment Required with an invoice, and the paid preimage unlocks it.",
+			"quoted": false
+		},
+		{
+			"term": "zap",
+			"category": "lightning",
+			"aliases": [
+				"zaps",
+				"zapped"
+			],
+			"boost": true,
+			"summary": "A Lightning tip sent on Nostr, receipted publicly against a note or a profile.",
+			"definition": "A Lightning tip sent on Nostr, receipted publicly against a note or a profile.",
+			"quoted": false
+		},
+		{
+			"term": "Nostr",
+			"category": "lightning",
+			"soundsLike": [
+				"noster",
+				"nostra",
+				"nostur"
+			],
+			"corrections": [
+				{
+					"match": "\\bnost(?:er|ra|ur)\\b",
+					"replace": "Nostr"
+				}
+			],
+			"boost": true,
+			"summary": "An open protocol for social posts and messages, signed with your own keys.",
+			"definition": "An open protocol for social posts and messages, signed with your own keys. Zaps and Nostr Wallet Connect build on it.",
+			"quoted": false
+		},
+		{
+			"term": "NWC",
+			"category": "lightning",
+			"aliases": [
+				"Nostr Wallet Connect"
+			],
+			"soundsLike": [
+				"n w c"
+			],
+			"corrections": [
+				{
+					"match": "\\bn[ .-]?w[ .-]?c(s?)\\b",
+					"replace": "NWC$1"
+				}
+			],
+			"pronounce": {
+				"alias": "N W C"
+			},
+			"boost": true,
+			"summary": "Nostr Wallet Connect: an app sends payment requests to your wallet over Nostr, within limits you set.",
+			"definition": "Nostr Wallet Connect: an app sends payment requests to your wallet over Nostr, within limits you set.",
+			"quoted": false
+		},
+		{
+			"term": "Core Lightning",
+			"category": "lightning",
+			"aliases": [
+				"CLN",
+				"lightningd"
+			],
+			"boost": true,
+			"summary": "Blockstream's Lightning node software; Second's Lightning gateway runs on it.",
+			"definition": "Blockstream's Lightning node software; Second's Lightning gateway runs on it.",
+			"quoted": false
+		}
+	]
+}
