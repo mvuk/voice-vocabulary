@@ -68,6 +68,29 @@ class FromMCP(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(vocab.stt_settings(stt_like(DeepgramSTTService)))
 
 
+BARK_VOICE = pathlib.Path(__import__("os").environ.get("BARK_VOICE", "~/bark-voice")).expanduser()
+HAS_BARK_VOICE = (BARK_VOICE / "bin" / "bark-voice.js").exists() and (pathlib.Path.home() / ".bark-voice" / "config.json").exists()
+
+
+@unittest.skipUnless(HAS_BARK_VOICE, "needs bark-voice with a wallet set up (npm run setup); set BARK_VOICE to its folder")
+class AgainstBarkVoice(unittest.IsolatedAsyncioTestCase):
+    """The reference server, end to end: bark-voice → bark-mcp → barkd, over Pipecat's MCPClient."""
+
+    async def test_a_pipecat_bot_learns_bark_voices_words(self):
+        mcp = MCPClient(server_params=StdioServerParameters(command="node", args=[str(BARK_VOICE / "bin" / "bark-voice.js"), "stdio"]))
+        try:
+            tools = await mcp.tools()
+            vocab = await VoiceVocabulary.from_mcp(mcp)
+        finally:
+            await mcp.close()
+        names = {t.name for t in tools.standard_tools}
+        self.assertTrue({"get_balance", "pay", "explain_term"} <= names)
+        self.assertEqual(vocab.documents[0]["name"], "Bark")
+        self.assertGreaterEqual(len(vocab.documents[0]["terms"]), 100)
+        self.assertEqual(vocab.correct("board into arc")[0], "board into Ark")
+        self.assertEqual(vocab.stt_settings(stt_like(DeepgramSTTService)).keyterm[:2], ["Ark", "VTXO"])
+
+
 class STTSettings(unittest.TestCase):
     vocab = VoiceVocabulary([__import__("json").loads(BARK.read_text())])
 

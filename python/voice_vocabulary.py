@@ -109,7 +109,7 @@ async def from_mcp_session(session: Any, capabilities: Any = None) -> dict | Non
 
     The capability first (pass the InitializeResult or its capabilities, or let the
     session's own be used); failing that, a listed resource with the vocabulary's
-    mimeType, which is the only way on connections that can't carry extensions
+    mimeType, for servers whose SDK leaves the capability out of the handshake
     (SPEC 1). None when the server has none."""
     caps = getattr(capabilities, "capabilities", capabilities)
     if caps is None:

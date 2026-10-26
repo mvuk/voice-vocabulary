@@ -17,7 +17,7 @@ This SEP proposes an optional extension that lets an MCP server publish that lex
 
 - **Server:** [bark-voice](https://gitlab.com/matthewvuk/bark-voice), a voice connector for a bitcoin wallet built on Second's [bark-mcp](https://gitlab.com/ark-bitcoin/labs/bark-mcp); the canonical example and where the idea came from (unprompted, Whisper transcribed every "Ark" as "arc").
 - **Clients:** dependency-free [JavaScript](https://github.com/mvuk/voice-vocabulary/blob/main/js/voice-vocabulary.js) and [Python](https://github.com/mvuk/voice-vocabulary/blob/main/python/voice_vocabulary.py), passing a shared [conformance suite](https://github.com/mvuk/voice-vocabulary/blob/main/conformance/cases.json).
-- **Voice framework:** a [Pipecat integration](https://github.com/mvuk/voice-vocabulary/tree/main/integrations/pipecat), tested against Pipecat 1.14.0 with a real MCP server. Building it showed that Pipecat's `initialize`-handshake connection can't carry `extensions`, so the spec also lets clients find the vocabulary by its resource `mimeType`.
+- **Voice framework:** a [Pipecat integration](https://github.com/mvuk/voice-vocabulary/tree/main/integrations/pipecat), run end to end with Pipecat 1.14.0 against bark-voice (bark-voice → bark-mcp → a signet wallet daemon): 25 tools, the 101-term vocabulary, keyterms to the STT, the primer to the LLM, and "board into arc" corrected to "board into Ark". Building it showed that whether the `extensions` capability arrives on Pipecat's `initialize` connection depends on the server's SDK (TypeScript sends it, Python 2.3 doesn't), so the spec also lets clients find the vocabulary by its resource `mimeType`.
 
 ## Feedback wanted
 

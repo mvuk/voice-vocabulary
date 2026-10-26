@@ -36,9 +36,10 @@ async def list_tools(ctx, params):
 async def main():
     server = Server("vocab-test", on_list_resources=list_resources, on_read_resource=read_resource, on_list_tools=list_tools)
     async with stdio_server() as (read, write):
-        # Advertised for 2026-07-28 clients (server/discover). Pipecat connects with
-        # the initialize handshake, which can't carry extensions, so it finds the
-        # vocabulary by the listed resource's mimeType instead (SPEC 1).
+        # Advertised, but on Pipecat's 2025-11-25 initialize connection the MCP
+        # Python SDK 2.3 leaves it out, so Pipecat finds the vocabulary by the
+        # listed resource's mimeType instead (SPEC 1). bark-voice (TypeScript
+        # SDK) sends it on the same connection.
         if not NONE:
             server.extensions = {EXTENSION: {"uri": URI, "language": "en"}}
         await server.run(read, write, server.create_initialization_options())

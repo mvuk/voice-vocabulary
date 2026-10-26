@@ -64,7 +64,7 @@ export function validate(doc) {
  * Read the vocabulary a connected server publishes (MCP TypeScript SDK `Client`,
  * or anything with getServerCapabilities(), listResources() and readResource()).
  * The capability first; failing that, a listed resource with the vocabulary's
- * mimeType, which works on connections that can't carry extensions (SPEC 1).
+ * mimeType, for servers whose SDK leaves the capability out of the handshake (SPEC 1).
  * Null when the server has none; throws when its document is invalid.
  */
 export async function fromMcpClient(client) {

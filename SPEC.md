@@ -91,9 +91,10 @@ and MUST list it in `resources/list` with that `mimeType`.
 result where it carries extensions). If the capability isn't there, the client
 SHOULD fall back to `resources/list` and use the first resource whose `mimeType`
 is `application/vnd.voice-vocabulary+json`. The fallback matters in practice:
-protocol versions up to 2025-11-25 have no `extensions` field, and SDKs drop it
-on those connections (the MCP Python SDK 2.3 does), while most voice frameworks
-still connect with the `initialize` handshake.
+whether the capability reaches a client depends on the server's SDK. On a
+2025-11-25 `initialize` connection, which is how most voice frameworks connect
+today, the MCP TypeScript SDK sends it, but the MCP Python SDK 2.3 omits it unless
+the 2026-07-28 protocol is negotiated.
 
 A client that supports the extension MAY advertise it in its own `initialize`
 request, with an empty settings object. A server MUST NOT require it: the
@@ -256,9 +257,10 @@ descriptions and results understandable without it.
   The capability only says which resource it is.
 - **Discoverable without the capability.** Building the reference Pipecat
   integration showed that a capability alone isn't enough today: Pipecat connects
-  with the `initialize` handshake, which can't carry `extensions`. Listing the
-  resource under its own `mimeType` makes the vocabulary findable on every
-  protocol version, with no SDK changes.
+  with the 2025-11-25 `initialize` handshake, and on that connection a server built
+  with the MCP Python SDK 2.3 omits `extensions` (one built with the TypeScript SDK
+  sends it). Listing the resource under its own `mimeType` makes the vocabulary
+  findable from either, on every protocol version, with no SDK changes.
 - **Engine-neutral, client-converted.** Engines change faster than a spec can.
   The document carries facts (spellings, sound-alikes, pronunciations, boost
   priority); each client maps them to the parameters its engines take.

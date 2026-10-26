@@ -40,10 +40,11 @@ corrected), never from the corrected text (SPEC.md section 3.1).
 ## How it finds the vocabulary
 
 Pipecat's `MCPClient` connects with the `initialize` handshake (protocol
-2025-11-25), which can't carry MCP extensions: the MCP Python SDK drops the
-`extensions` capability on such connections. So the integration falls back to
-`resources/list` and reads the resource whose `mimeType` is
-`application/vnd.voice-vocabulary+json` (SPEC.md section 1). It reaches the MCP
+2025-11-25). Whether the `extensions` capability arrives on that connection
+depends on the server's SDK: the MCP TypeScript SDK sends it (bark-voice), the
+MCP Python SDK 2.3 leaves it out. So the integration uses the capability when it's
+there and otherwise falls back to `resources/list`, reading the resource whose
+`mimeType` is `application/vnd.voice-vocabulary+json` (SPEC.md section 1). It reaches the MCP
 session through `MCPClient`'s private `_get_active_session()`; upstream, Pipecat
 would expose the session's capabilities and resources instead.
 
@@ -59,5 +60,12 @@ cd integrations/pipecat && PYTHONPATH=. ../../.venv/bin/python -m unittest -v te
 ```
 
 On NixOS, Pipecat's audio wheels need `LD_LIBRARY_PATH` to include a `libstdc++`.
+
+Against bark-voice itself (a real server: bark-voice → bark-mcp → a signet
+`barkd`), when one is set up (`npm run setup` in bark-voice):
+
+```bash
+BARK_VOICE=~/bark-voice PYTHONPATH=. ../../.venv/bin/python -m unittest -v test_pipecat_voice_vocabulary
+```
 
 Not yet run: a live bot with real audio and API keys.
